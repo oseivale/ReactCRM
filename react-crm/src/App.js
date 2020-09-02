@@ -1,21 +1,57 @@
-import React from "react";
-import Menu from "./Menu";
-import Header from "./Header";
+import React, { useState, useEffect } from "react";
 import AllContacts from "./AllContacts";
-import SingleContact from "./SingleContact";
 import Home from "./Home";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
+	const initialContactData = {
+		id: null,
+		firstName: "",
+		lastName: "",
+		email: "",
+		phoneNumber: ""
+	};
+
+	const [contactData, setContactData] = useState(initialContactData);
+	const [allContacts, setAllContacts] = useState([]);
+
+	const handleContactFormData = event => {
+		setContactData({
+			...contactData,
+			[event.target.name]: event.target.value
+		});
+	};
+
+	const handleSubmit = event => {
+		event.preventDefault();
+		setAllContacts(allContacts.concat(contactData));
+		console.log(allContacts);
+	};
+
+	const deleteContact = id => {
+		setAllContacts(
+			allContacts.filter(item => {
+				if (item.id !== id) {
+					return item;
+				}
+			})
+		);
+	};
+
 	return (
 		<div className="App">
-			<BrowserRouter>
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="all-contacts" element={<AllContacts />} />
-					<Route path="all-contacts/:id" element={<SingleContact />} />
-				</Routes>
-			</BrowserRouter>
+			<Home
+				handleContactFormData={handleContactFormData}
+				contactData={contactData}
+				allContacts={allContacts}
+				setAllContacts={setAllContacts}
+				handleSubmit={handleSubmit}
+			/>
+
+			<AllContacts
+				contactData={contactData}
+				allContacts={allContacts}
+				deleteContact={deleteContact}
+			/>
 		</div>
 	);
 }

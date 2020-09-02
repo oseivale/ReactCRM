@@ -9,7 +9,8 @@ import {
 	FormControl,
 	InputLabel,
 	Input,
-	FormHelperText
+	FormHelperText,
+	Button
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -26,7 +27,13 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-function NewContact() {
+function NewContact({
+	handleContactFormData,
+	handleSubmit,
+	contactData,
+	allContacts,
+	setAllContacts
+}) {
 	const classes = useStyles();
 	const [open, setOpen] = useState(false);
 
@@ -37,14 +44,16 @@ function NewContact() {
 	const handleClose = () => {
 		setOpen(false);
 	};
+
 	return (
 		<div>
-			<Typography
-				variant="h5"
-				style={{ margin: "1rem", textAlign: "center" }}
+			<Button
+				variant="contained"
+				color="primary"
+				style={{ marginLeft: "8rem", textAlign: "center", fontSize: "1.5rem" }}
 				onClick={handleOpen}>
 				Add a New Contact
-			</Typography>
+			</Button>
 			<Modal
 				aria-labelledby="transition-modal-title"
 				aria-describedby="transition-modal-description"
@@ -63,19 +72,31 @@ function NewContact() {
 						</Typography>
 						<form id="transition-modal-description">
 							<div>
-								<TextField id="standard-basic" label="First Name" />
+								<TextField
+									id="standard-basic"
+									label="First Name"
+									name="firstName"
+									onChange={handleContactFormData}
+								/>
 							</div>
 							<div>
 								<TextField
 									id="standard-basic"
 									label="Last Name"
 									style={{ marginTop: "2em" }}
+									name="lastName"
+									onChange={handleContactFormData}
 								/>
 							</div>
 							<div>
 								<FormControl style={{ marginTop: "2em" }}>
 									<InputLabel htmlFor="my-input">Email address</InputLabel>
-									<Input id="my-input" aria-describedby="my-helper-text" />
+									<Input
+										id="my-input"
+										aria-describedby="my-helper-text"
+										name="email"
+										onChange={handleContactFormData}
+									/>
 									<FormHelperText id="my-helper-text">
 										We'll never share your email.
 									</FormHelperText>
@@ -84,9 +105,21 @@ function NewContact() {
 							<div>
 								<FormControl style={{ marginTop: "2em" }}>
 									<InputLabel htmlFor="my-input">Phone Number</InputLabel>
-									<Input id="my-input" aria-describedby="my-helper-text" />
+									<Input
+										id="my-input"
+										aria-describedby="my-helper-text"
+										name="phoneNumber"
+										onChange={handleContactFormData}
+									/>
 								</FormControl>
 							</div>
+							<Button
+								variant="contained"
+								color="primary"
+								style={{ marginTop: "2rem" }}
+								onClick={handleSubmit}>
+								Add Contact
+							</Button>
 						</form>
 					</div>
 				</Fade>

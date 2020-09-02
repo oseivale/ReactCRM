@@ -1,10 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import NewContact from "./NewContact";
 
-function Menu() {
+function Menu({
+	handleContactFormData,
+	contactData,
+	allContacts,
+	setAllContacts,
+	handleSubmit
+}) {
 	return (
 		<Container
 			maxWidth="sm"
@@ -13,10 +18,13 @@ function Menu() {
 				marginTop: "4rem",
 				padding: "2rem"
 			}}>
-			<NewContact />
-			<Typography variant="h5" style={{ margin: "1rem", textAlign: "center" }}>
-				<Link to="all-contacts">View Existing contacts</Link>
-			</Typography>
+			<NewContact
+				handleContactFormData={handleContactFormData}
+				contactData={contactData}
+				allContacts={allContacts}
+				setAllContacts={setAllContacts}
+				handleSubmit={handleSubmit}
+			/>
 		</Container>
 	);
 }
