@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme => ({
 
 function NewContact({
 	handleContactFormData,
+	initialContactData,
 	handleSubmit,
 	contactData,
 	allContacts,
@@ -36,6 +37,7 @@ function NewContact({
 }) {
 	const classes = useStyles();
 	const [open, setOpen] = useState(false);
+	const [currentContact, setCurrentContact] = useState(initialContactData);
 
 	const handleOpen = () => {
 		setOpen(true);
@@ -45,12 +47,24 @@ function NewContact({
 		setOpen(false);
 	};
 
+	// const editContact = contact => {
+	// 	setEditing(true);
+
+	// 	setCurrentContact({
+	// 		id: contact.id,
+	// 		firstName: contact.firstName,
+	// 		lastName: contact.lastName,
+	// 		email: contact.email,
+	// 		phoneNumber: contact.phoneNumber
+	// 	});
+	// };
+
 	return (
 		<div>
 			<Button
 				variant="contained"
 				color="primary"
-				style={{ marginLeft: "8rem", textAlign: "center", fontSize: "1.5rem" }}
+				style={{ textAlign: "center", fontSize: "1.5rem" }}
 				onClick={handleOpen}>
 				Add a New Contact
 			</Button>
@@ -119,6 +133,13 @@ function NewContact({
 								style={{ marginTop: "2rem" }}
 								onClick={handleSubmit}>
 								Add Contact
+							</Button>
+							<Button
+								variant="contained"
+								color="primary"
+								style={{ marginTop: "2rem", marginLeft: "2rem" }}
+								onClick={handleClose}>
+								Close
 							</Button>
 						</form>
 					</div>

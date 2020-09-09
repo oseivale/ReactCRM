@@ -1,6 +1,4 @@
 import React from "react";
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
 import NewContact from "./NewContact";
 
 function Menu({
@@ -8,15 +6,18 @@ function Menu({
 	contactData,
 	allContacts,
 	setAllContacts,
-	handleSubmit
+	handleSubmit,
+	editing,
+	currentContact
 }) {
 	return (
-		<Container
-			maxWidth="sm"
+		<div
 			style={{
 				backgroundColor: "#EAECEE",
 				marginTop: "4rem",
-				padding: "2rem"
+				padding: "2rem",
+				display: "flex",
+				justifyContent: "center"
 			}}>
 			<NewContact
 				handleContactFormData={handleContactFormData}
@@ -24,8 +25,10 @@ function Menu({
 				allContacts={allContacts}
 				setAllContacts={setAllContacts}
 				handleSubmit={handleSubmit}
+				editing={editing}
+				currentContact={currentContact}
 			/>
-		</Container>
+		</div>
 	);
 }
 

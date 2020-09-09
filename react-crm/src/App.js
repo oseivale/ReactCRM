@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AllContacts from "./AllContacts";
-import Home from "./Home";
+import Header from "./Header";
+import Menu from "./Menu";
+import { Container } from "@material-ui/core";
 
 function App() {
 	const initialContactData = {
@@ -13,6 +15,8 @@ function App() {
 
 	const [contactData, setContactData] = useState(initialContactData);
 	const [allContacts, setAllContacts] = useState([]);
+	const [editing, setEditing] = useState(false);
+	const [currentContact, setCurrentContact] = useState(initialContactData);
 
 	const handleContactFormData = event => {
 		setContactData({
@@ -28,31 +32,41 @@ function App() {
 	};
 
 	const deleteContact = id => {
-		setAllContacts(
-			allContacts.filter(item => {
-				if (item.id !== id) {
-					return item;
-				}
-			})
-		);
+		setAllContacts(allContacts.filter(item => item.id !== id));
+	};
+
+	const editContact = contact => {
+		setEditing(true);
+
+		setCurrentContact({
+			id: contact.id,
+			firstName: contact.firstName,
+			lastName: contact.lastName,
+			email: contact.email,
+			phoneNumber: contact.phoneNumber
+		});
 	};
 
 	return (
-		<div className="App">
-			<Home
+		<Container>
+			<Header />
+			<Menu
 				handleContactFormData={handleContactFormData}
 				contactData={contactData}
 				allContacts={allContacts}
 				setAllContacts={setAllContacts}
 				handleSubmit={handleSubmit}
+				editing={editing}
+				currentContact={currentContact}
+				editContact={editContact}
 			/>
-
 			<AllContacts
 				contactData={contactData}
 				allContacts={allContacts}
 				deleteContact={deleteContact}
+				editContact={editContact}
 			/>
-		</div>
+		</Container>
 	);
 }
 
